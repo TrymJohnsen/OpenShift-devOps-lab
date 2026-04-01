@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-html
+  namespace: interview-lab
+data:
+  index.html: |
+    <html>
+      <head><title>Interview Lab</title></head>
+      <body>
+        <h1>Interview Lab: Nginx on Kubernetes</h1>
+        <p>If you can read this, deploy + service + ingress are working.</p>
+      </body>
+    </html>
