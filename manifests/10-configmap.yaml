@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nginx-html
-  namespace: interview-lab
+  namespace: interview-lab #pods må være i samme namespace for å bruke denne
 data:
   index.html: |
     <html>
