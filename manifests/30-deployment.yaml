@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: interview-lab
+spec: #hvordan deploy skal se ut
+  replicas: 2 #k8s skal kjøre 2 pods av denne deploymenten
+  selector:
+    matchLabels: #depolymenten skal styre pods som har label app: nginx
+      app: nginx
+  template: #mal for hvordan pods skal se ut
+    metadata:
+      labels:
+        app: nginx #matche label i selector
+    spec: #hvordan hver pod skal se ut
+      securityContext:
+        runAsNonRoot: true #sikkerhet: kjør ikke som root
+      containers: #definisjon av container i pod
+        - name: nginx
+          image: nginx:1.27-alpine #bruk nginx image fra dockerhub som har os, installert nginx og default config
+          ports:
+            - name: http
+              containerPort: 8080
+          env: #miljøvariabler for containeren
+            - name: DEMO_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: DEMO_TOKEN
+          resources:
+            requests: #ressursforespørsler for å sikre at podene får nok ressurser til å kjøre
+              cpu: 25m
+              memory: 64Mi 
+            limits: #ressursgrenser for å forhindre at podene bruker for mye ressurser
+              cpu: 200m
+              memory: 128Mi
+          readinessProbe: #prober for å sjekke om poden er klar til å motta trafikk
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe: #prober for å sjekke om poden er i live, hvis ikke restart den
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          volumeMounts: #monter configmaps som volumer i containeren
+            - name: html
+              mountPath: /usr/share/nginx/html/index.html
+              subPath: index.html
+            - name: nginx-conf
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+      volumes: # definerer volume kilder
+        - name: html
+          configMap:
+            name: nginx-html
+        - name: nginx-conf
+          configMap:
+            name: nginx-config
