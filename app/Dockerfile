@@ -1,13 +1,21 @@
-FROM python:3.12-slim
+#start with a lightweight linux machine with python 3.12 installed
+FROM python:3.12-slim 
 
+#every command will be run in the /app directory (like cd /app)
 WORKDIR /app
 
+#copy the main.py file from the current directory (.) to the /app directory in the container
 COPY main.py .
 
-# Run as non-root (important for OpenShift SCC compatibility)
+#runs command under build, result is saved in the image, so we can use it later when we run the container
+RUN pip install fastapi uvicorn
+
+# non-root user (OpenShift friendly) - creates a new user named "appuser" with no password and no additional information (gecos)
 RUN adduser --disabled-password --gecos "" appuser
 USER appuser
 
-EXPOSE 8080
+#tell that the container will listen on port 8000 when it runs, i still have to specify in docker run command to map the port to the host machine, but this is a good practice to document which port the application will use
+EXPOSE 8000
 
-CMD ["python", "main.py"]
+#specifies the command to run when the container starts, in this case it will start the uvicorn server and run the FastAPI application defined in main.py, it will listen on all network interfaces (
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
