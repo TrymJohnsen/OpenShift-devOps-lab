@@ -1,6 +1,8 @@
+#shebang + safety
 #!/usr/bin/env bash
 set -euo pipefail
 
+# deploy manifest
 echo "Applying Kubernetes manifests..."
 kubectl apply -f manifests/00-namespace.yaml
 kubectl apply -f manifests/

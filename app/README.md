@@ -82,32 +82,58 @@ This repository is a lab for learning how an application moves through a deploym
 
 That is why `app/` should be read as one part of a larger system, not as a standalone Python exercise.
 
-## Run Locally
+## Test Locally
+
+If you are standing in the `app/` directory, create and activate a virtual environment:
 
 ```bash
-python main.py
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Install the dependencies manually:
+
+```bash
+pip install fastapi uvicorn
+```
+
+Start the app with Uvicorn on port `8000`:
+
+```bash
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+Important:
+
+- There is currently no `requirements.txt` in `app/`, so `pip install -r requirements.txt` will fail.
+- If you run the command from inside `app/`, use `main:app`.
+- `uvicorn app.main:app` only works if you run it from the repository root.
+
+Test the endpoints in another terminal:
+
+```bash
+curl http://localhost:8000/
+curl http://localhost:8000/health
 ```
 
 With a custom environment:
 
 ```bash
-APP_ENV=staging python main.py
+APP_ENV=staging uvicorn main:app --host 0.0.0.0 --port 8000
 ```
-
-The app listens on port `8080` by default unless `PORT` is set.
 
 ## Build The Container Image
 
 ```bash
 docker build -t myapp:latest .
-docker run --rm -p 8080:8080 myapp:latest
+docker run --rm -p 8000:8000 myapp:latest
 ```
 
 After starting the container, you can test it with:
 
 ```bash
-curl http://localhost:8080/
-curl http://localhost:8080/health
+curl http://localhost:8000/
+curl http://localhost:8000/health
 ```
 
 ## OpenShift / Kubernetes Compatibility
