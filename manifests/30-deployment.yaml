@@ -17,7 +17,7 @@ spec: #hvordan deploy skal se ut
         runAsNonRoot: true #sikkerhet: kjør ikke som root
       containers: #definisjon av container i pod
         - name: nginx
-          image: nginx:1.27-alpine #bruk nginx image fra dockerhub som har os, installert nginx og default config
+          image:  nginxinc/nginx-unprivileged:stable-alpine #bruker nginx image som kjører nginx som non-root
           ports:
             - name: http
               containerPort: 8080
