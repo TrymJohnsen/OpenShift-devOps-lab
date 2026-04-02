@@ -9,7 +9,7 @@ kubectl apply -f manifests/
 
 echo
 echo "Wait for rollout..."
-kubectl -n interview-lab rollout status deploy/nginx --timeout=120s
+kubectl -n interview-lab rollout status deploy/nginx --timeout=240s
 
 echo
 echo "Resources:"
