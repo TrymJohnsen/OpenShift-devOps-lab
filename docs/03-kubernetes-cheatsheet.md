@@ -20,35 +20,35 @@ kubectl config current-context
 
 # Namespaces
 kubectl get namespaces
-kubectl create namespace lab
-kubectl config set-context --current --namespace=lab
+kubectl create namespace interview-lab
+kubectl config set-context --current --namespace=interview-lab
 
 # Apply / delete manifests
 kubectl apply -f manifests/
 kubectl delete -f manifests/
 
 # Pods
-kubectl get pods -n lab
+kubectl get pods -n interview-lab
 kubectl get pods -A                       # all namespaces
-kubectl describe pod <name> -n lab
-kubectl logs <pod> -n lab
-kubectl logs <pod> -n lab -f              # follow
-kubectl logs <pod> -n lab -c <container>  # multi-container pod
-kubectl exec -it <pod> -n lab -- /bin/sh
+kubectl describe pod <name> -n interview-lab
+kubectl logs <pod> -n interview-lab
+kubectl logs <pod> -n interview-lab -f              # follow
+kubectl logs <pod> -n interview-lab -c <container>  # multi-container pod
+kubectl exec -it <pod> -n interview-lab -- /bin/sh
 
 # Deployments
-kubectl get deployments -n lab
-kubectl rollout status deployment/<name> -n lab
-kubectl rollout history deployment/<name> -n lab
-kubectl rollout undo deployment/<name> -n lab
-kubectl scale deployment/<name> --replicas=3 -n lab
+kubectl get deployments -n interview-lab
+kubectl rollout status deployment/<name> -n interview-lab
+kubectl rollout history deployment/<name> -n interview-lab
+kubectl rollout undo deployment/<name> -n interview-lab
+kubectl scale deployment/<name> --replicas=3 -n interview-lab
 
 # Services / Ingress
-kubectl get svc -n lab
-kubectl get ingress -n lab
+kubectl get svc -n interview-lab
+kubectl get ingress -n interview-lab
 
 # Events (very useful for debugging)
-kubectl get events -n lab --sort-by='.lastTimestamp'
+kubectl get events -n interview-lab --sort-by='.lastTimestamp' # | tail -n 5
 ```
 
 ## Health checks (probes)
@@ -71,6 +71,7 @@ livenessProbe:
 ```
 - **Readiness**: pod receives traffic only when ready.
 - **Liveness**: pod is restarted when it fails.
+- doesnt need port forwarding as httpget happens internally in the cluster
 
 ## Resource requests and limits
 ```yaml

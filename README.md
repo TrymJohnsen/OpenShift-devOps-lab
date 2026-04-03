@@ -14,7 +14,7 @@ Hands-on DevOps interview preparation: Linux + containers + Kubernetes fundament
 - `docs/` – notes, checklists, and troubleshooting stories
 - `manifests/` – Kubernetes YAML used in the lab
 - `scripts/` – commands I ran (repeatable)
-- `app/` – optional demo service
+- `app/` – easy FastAPI optional demo service
 
 ## How to run locally (Windows + WSL2)
 Prereqs:
@@ -26,7 +26,8 @@ High-level steps:
 1. Create a local cluster
 2. Apply manifests from `manifests/`
 3. Verify with `kubectl get pods,svc,ingress -A`
-4. Debug using logs/events/describe
+4. remember to run `kubectl port-forward -n interview-lab svc/backend 8000:8000` to forward from your pc to the cluster as they dont talk together by default
+5. Debug using logs/events/describe
 
 (Exact commands in `scripts/`.)
 
