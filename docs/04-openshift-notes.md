@@ -2,7 +2,7 @@
 
 ## Kubernetes vs OpenShift (what I would expect in a team)
 - OpenShift is Kubernetes + opinionated defaults + integrated platform capabilities (auth, routing, build, operators, security constraints).
-- I expect most day-2 work to be: debugging, rollouts, RBAC, image management, routes/ingress, and GitOps.
+- I expect most day-2 to be: debugging, rollouts, RBAC, image management, routes/ingress, and GitOps.
 
 ## Projects / Namespaces
 - OpenShift "Project" is essentially a Kubernetes namespace plus OpenShift-specific metadata and workflows.
