@@ -94,7 +94,7 @@ source venv/bin/activate
 Install the dependencies manually:
 
 ```bash
-pip install fastapi uvicorn
+pip install -r requirements.txt
 ```
 
 Start the app with Uvicorn on port `8000`:
@@ -105,7 +105,6 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 
 Important:
 
-- There is currently no `requirements.txt` in `app/`, so `pip install -r requirements.txt` will fail.
 - If you run the command from inside `app/`, use `main:app`.
 - `uvicorn app.main:app` only works if you run it from the repository root.
 
