@@ -31,6 +31,23 @@ High-level steps:
 
 (Exact commands in `scripts/`.)
 
+## CI/CD
+- Pull requests to `main` can now be validated with GitHub Actions in `.github/workflows/pr-checks.yml`
+- The PR pipeline does three useful checks:
+  - runs Python tests for the FastAPI app
+  - builds the Docker image to catch container build failures early
+  - validates Kubernetes manifests with `kubeconform`
+- Pushes to `main` can use `.github/workflows/deploy-main.yml` to build and push an image to GitHub Container Registry (`ghcr.io`)
+- The actual cluster deploy step is intentionally left as a safe placeholder until you add your OpenShift credentials and target namespace
+
+### Recommended PR flow
+1. Create a feature branch
+2. Push your branch to GitHub
+3. Open a pull request against `main`
+4. Wait for the `PR Checks` workflow to pass
+5. Merge the PR
+6. Let the `Deploy Main` workflow build and publish the image for the cluster
+
 ## OpenShift notes (what I focused on for interviews)
 - OpenShift Projects vs Kubernetes Namespaces
 - Routes vs Ingress
