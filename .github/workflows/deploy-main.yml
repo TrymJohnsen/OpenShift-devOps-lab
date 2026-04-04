@@ -1,0 +1,62 @@
+name: Deploy Main
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/openshift-devops-lab
+
+jobs:
+  build-and-push:
+    name: Build and push image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha
+            type=raw,value=latest
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./app
+          file: ./app/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+# dette er bare en placeholder for å vise hvor du kan legge til OpenShift eller Kubernetes deploy steg senere. Det er ikke ment å kjøre som det er nå, så det er satt til false for å unngå feil i workflowen.
+  deploy-to-cluster:
+    name: Deploy to cluster
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: ${{ false }}
+    steps:
+      - name: Placeholder
+        run: |
+          echo "Add OpenShift or Kubernetes deployment here."
+          echo "Typical next step: login with oc, set namespace, update image, and apply manifests."
