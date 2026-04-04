@@ -48,7 +48,7 @@ High-level steps:
 5. Merge the PR
 6. Let the `Deploy Main` workflow build and publish the image for the cluster
 
-## OpenShift notes (what I focused on for interviews)
+## OpenShift notes (what i focused on for this project)
 - OpenShift Projects vs Kubernetes Namespaces
 - Routes vs Ingress
 - SCC (security constraints) vs vanilla Kubernetes defaults
