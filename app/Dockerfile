@@ -7,11 +7,14 @@ FROM python:3.12-slim
 #every command will be run in the /app directory (like cd /app)
 WORKDIR /app
 
-#copy the main.py file from the current directory (.) to the /app directory in the container
-COPY main.py .
+#copy dependency files first for better docker layer caching
+COPY requirements.txt .
 
 #runs command under build, result is saved in the image, so we can use it later when we run the container
-RUN pip install fastapi uvicorn
+RUN pip install --no-cache-dir -r requirements.txt
+
+#copy the application source into the container
+COPY main.py .
 
 # non-root user (OpenShift friendly) - creates a new user named "appuser" with no password and no additional information (gecos)
 # non-root is good because in prod it is not about maxium freedom like how development environment is, but about security, 
