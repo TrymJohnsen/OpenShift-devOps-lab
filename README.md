@@ -55,8 +55,6 @@ High-level steps:
 - `oc` workflow and day-2 operations (logs, events, rollout, RBAC)
 - GitOps approach (OpenShift GitOps/Argo CD conceptually)
 
-## Study plan (1 week)
-See `docs/00-plan.md`.
 
 ## Source material
 - OpenShift Starter Guides (ParksMap labs): https://openshift-labs.github.io/starter-guides-html/
