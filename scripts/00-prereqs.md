@@ -23,9 +23,6 @@
 
 ### kubectl
 - Install in WSL Ubuntu:
-  - `sudo apt update`
-  - `sudo apt install -y kubectl`
-- If `apt` does not find it, use the snap package instead:
   - `sudo snap install kubectl --classic`
 - Verify:
   - `kubectl version --client`
