@@ -1,6 +1,6 @@
 # OpenShift DevOps Lab
 
-Hands-on DevOps interview preparation: Linux + containers + Kubernetes fundamentals practiced locally (WSL2 + lightweight Kubernetes), with OpenShift (OCP) concepts documented and mapped to real platform work (Routes, SCC, RBAC, GitOps, debugging).
+Hands-on DevOps: Linux + containers + Kubernetes fundamentals practiced locally (WSL2 + lightweight Kubernetes), with OpenShift (OCP) concepts documented and mapped to real platform work (Routes, SCC, RBAC, GitOps, debugging).
 
 ## What I built (mini platform project)
 - A small service deployed on Kubernetes locally
