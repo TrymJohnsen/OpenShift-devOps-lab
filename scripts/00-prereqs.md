@@ -5,6 +5,31 @@
 - kind
 - kubectl
 
+## If you do not have them
+
+### Docker
+- Install Docker Desktop on Windows.
+- In Docker Desktop, enable WSL2 integration for your Ubuntu distro.
+- Verify in WSL:
+  - `docker version`
+
+### kind
+- Install in WSL Ubuntu:
+  - `curl -Lo ./kind https://kind.sigs.k8s.io/dl/latest/kind-linux-amd64`
+  - `chmod +x ./kind`
+  - `sudo mv ./kind /usr/local/bin/kind`
+- Verify:
+  - `kind version`
+
+### kubectl
+- Install in WSL Ubuntu:
+  - `sudo apt update`
+  - `sudo apt install -y kubectl`
+- If `apt` does not find it, use the snap package instead:
+  - `sudo snap install kubectl --classic`
+- Verify:
+  - `kubectl version --client`
+
 Quick checks:
 - `docker version`
 - `kind version`
