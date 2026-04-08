@@ -7,7 +7,6 @@ Hands-on DevOps: Linux + containers + Kubernetes fundamentals practiced locally 
 - Health checks (readiness/liveness), resource requests/limits
 - Config via ConfigMap + Secret
 - Basic RBAC and namespace separation
-- Troubleshooting notes: logs/events/describe/exec patterns
 - OpenShift mapping: how I would do the same on OpenShift (Route, SCC, Projects, oc workflow, GitOps)
 
 ## Repo structure
